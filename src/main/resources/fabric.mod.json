@@ -1,31 +1,31 @@
 {
 	"schemaVersion": 1,
-	"id": "modid",
+	"id": "playerturtle",
 	"version": "${version}",
-	"name": "Example mod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "PlayerTurtle",
+	"description": "Automate your minecraft player with a TCP client.",
 	"authors": [
-		"Me!"
+		"IsCoffeeTho"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/IsCoffeeTho/playerturtle",
+		"sources": "https://github.com/IsCoffeeTho/playerturtle"
 	},
 	"license": "CC0-1.0",
-	"icon": "assets/modid/icon.png",
+	"icon": "assets/playerturtle/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.example.ExampleMod"
+			"org.cwyl.Playerturtle"
 		],
 		"client": [
-			"com.example.ExampleModClient"
+			"org.cwyl.PlayerturtleClient"
 		]
 	},
 	"mixins": [
-		"modid.mixins.json",
+		"playerturtle.mixins.json",
 		{
-			"config": "modid.client.mixins.json",
+			"config": "playerturtle.client.mixins.json",
 			"environment": "client"
 		}
 	],
