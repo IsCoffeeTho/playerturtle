@@ -16,10 +16,10 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"org.cwyl.Playerturtle"
+			"org.cwyl.PlayerturtleMod"
 		],
 		"client": [
-			"org.cwyl.PlayerturtleClient"
+			"org.cwyl.PlayerturtleClientMod"
 		]
 	},
 	"mixins": [
@@ -34,8 +34,5 @@
 		"minecraft": "~1.21.7",
 		"java": ">=21",
 		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
 	}
 }
