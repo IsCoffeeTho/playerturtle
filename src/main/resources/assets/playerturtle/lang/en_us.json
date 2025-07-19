@@ -1,0 +1,8 @@
+{
+	"text.config.playerturtle-config.option.enabled": "Enable Automation Server",
+	"text.config.playerturtle-config.option.enabled.tooltip": "Turns Off/On the Automation server",
+	"text.config.playerturtle-config.option.socketAddress": "Automation Server Address",
+	"text.config.playerturtle-config.option.socketAddress.tooltip": "IP address or hostname to bind the Automation server to",
+	"text.config.playerturtle-config.option.socketPort": "Automation Server Port",
+	"text.config.playerturtle-config.option.socketPort.tooltip": "TCP Socket port to run the Automation servcer on"
+}
