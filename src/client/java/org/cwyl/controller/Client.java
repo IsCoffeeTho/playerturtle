@@ -16,17 +16,17 @@ public class Client extends Thread {
 	private Socket socket;
 	private PrintWriter socketWriter;
 	private InputStreamReader socketReader;
+	
+	static String EOF = ""+((char)-1);
 
 	public Client(Server parent, Socket socket) {
 		this.parent = parent;
 		this.socket = socket;
 		try {
 			OutputStream output = socket.getOutputStream();
-			this.socketWriter = new PrintWriter(output, true);
-			
 			InputStream input = socket.getInputStream();
+			this.socketWriter = new PrintWriter(output, true);
 			this.socketReader = new InputStreamReader(input);
-			
 		} catch (Exception err) {
 			LOGGER.error(err.getMessage());
 		}
@@ -36,40 +36,46 @@ public class Client extends Thread {
 		LOGGER.info("Automation client connected (" + this.toAddressString() + ")");
 		try {
 			while (this.socket.isConnected()) {
-				
+				String command = this.read();
+				if (command == EOF)
+					break;
 				/** @TODO implement a simple protocol to automate the client */
-				LOGGER.info("CLIENT SAID '" + this.read() + "'");
-				
+				LOGGER.info("CLIENT SAID '" + command + "'");
 				
 			}
+			destroy();
 		} catch (Exception err) {
-			LOGGER.error("Automation client had a FATAL error: " + err.getMessage());
+			LOGGER.error("Automation client had an error: " + err.getMessage());
 		}
 	}
 	
 	public void write(String pkt) {
-		this.socketWriter.write(pkt);
+		this.socketWriter.write(pkt + "\n");
 		this.socketWriter.flush();
 	}
 	
 	public String read() {
 		try {
 			String retval = "";
-			while (true) {
+			while (this.socket.isConnected()) {
 				int character = this.socketReader.read();
-				if (character == 10)
+				if (character == -1)
+					return EOF;
+				if (character == '\n')
 					return retval;
 				retval += (char)character;
 			}
+			return retval;
 		} catch (Exception err) {
-			return ""+((char)-1);
+			return EOF;
 		}
 	}
 
 	public void destroy() throws IOException {
 		parent.clients.remove(this);
+		if (!this.socket.isClosed())
+			this.socket.close();
 		LOGGER.info("Automation connection closed (" + this.toAddressString() + ")");
-		this.socket.close();
 	}
 
 	public String toAddressString() {

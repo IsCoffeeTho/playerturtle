@@ -3,7 +3,6 @@ package org.cwyl.controller;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.ArrayList;
 
 import org.cwyl.PlayerturtleClientMod;
@@ -36,8 +35,7 @@ public class Server extends Thread {
 	public void run() {
 		while (true) {
 			try {
-				Socket socket = this.socket.accept();
-				Client client = new Client(this, socket);
+				Client client = new Client(this, this.socket.accept());
 				clients.add(client);
 				client.run();
 			} catch (IOException err) {
